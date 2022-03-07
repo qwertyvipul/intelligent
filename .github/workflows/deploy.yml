@@ -1,23 +1,26 @@
-name: Deploy to GitHub Pages
+# This is a basic workflow to help you get started with Actions
+
+name: CI
 
 on:
     push:
-        branches:
-            - main
+        branches: [main]
 
 jobs:
-    deploy:
-        name: Deploy to GitHub Pages
-            runs-on: ubuntu-latest
-            steps:
+    build:
+        runs-on: ubuntu-latest
+        container: pandoc/latex
+        steps:
             - uses: actions/checkout@v2
             - name: Pushes to another repository
-                uses: cpina/github-action-push-to-another-repository@main
-                    env:
-                        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-                    with:
-                        source-directory: 'test-dir'
-                        destination-github-username: 'qwertyvipul'
-                        destination-repository-name: 'temp-dir'
-                        user-email: vipuls526@gmail.com
-                        target-branch: main
+              id: push_directory
+              uses: cpina/github-action-push-to-another-repository@main
+              env:
+                  API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+              with:
+                  source-directory: test-dir/
+                  destination-github-username: 'qwertyvipul'
+                  destination-repository-name: 'temp-dir'
+                  user-email: vipuls526@gmail.com
+                  commit-message: See ORIGIN_COMMIT from $GITHUB_REF
+                  target-branch: main
