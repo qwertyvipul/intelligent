@@ -1,14 +1,10 @@
-name: Deploy to GitHub Pages
-
-on:
-    push:
-        branches:
-            - main
-
-jobs:
-    deploy:
-        name: Deploy to GitHub Pages
-        runs-on: ubuntu-latest
-        steps:
-            - name: Just some echo
-              run: echo "Hello, World!"
+- name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'test-dir'
+          destination-github-username: 'qwertyvipul'
+          destination-repository-name: 'temp-dir'
+          user-email: vipuls526@gmail.com
+          target-branch: main
